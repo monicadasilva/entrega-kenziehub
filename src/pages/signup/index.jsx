@@ -13,11 +13,11 @@ import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 
 import Input from "../../components/Input";
 
-const Signup = () => {
+const Signup = ({ authenticated }) => {
   const formSchema = yup.object().shape({
     name: yup.string().required("Mandatory field!"),
     course_module: yup.string().required("Mandatory field!"),
@@ -41,7 +41,6 @@ const Signup = () => {
   const history = useHistory();
 
   const onSubmitFunc = (data) => {
-    // const user = { email, password, name, course_module };
     api
       .post("/users", data)
       .then((response) => {
@@ -50,6 +49,10 @@ const Signup = () => {
       })
       .catch((err) => toast.error("Please complete all fields!"));
   };
+  if (authenticated) {
+    return <Redirect to={"/dashboard"} />;
+  }
+
   return (
     <Container>
       <Header />

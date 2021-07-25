@@ -6,10 +6,10 @@ import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import Input from "../../components/Input";
 
-const Signin = () => {
+const Signin = ({ authenticated, setAuthenticated, setUserId }) => {
   const formSchema = yup.object().shape({
     email: yup.string().email("Invalid Mail").required("Ivalid email!"),
     password: yup
@@ -23,18 +23,23 @@ const Signin = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(formSchema) });
-
   const history = useHistory();
 
   const onSubmitFunc = (data) => {
     api
       .post("/sessions", data)
       .then((response) => {
-        console.log(response.data);
-        return history.push("/dashboard");
+        setUserId(response.data.user);
+        localStorage.setItem("KenzieHub:token", response.data.token);
+        setAuthenticated(true);
+        history.push("/dashboard");
       })
       .catch((err) => toast.error("Invalid mail or password!"));
   };
+
+  if (authenticated) {
+    return <Redirect to={"/dashboard"} />;
+  }
   return (
     <Container>
       <Header />

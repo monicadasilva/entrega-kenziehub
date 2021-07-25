@@ -1,23 +1,31 @@
+import { useEffect, useState } from "react";
 import { Switch, Route } from "react-router";
-import Home from "../pages/home";
 import Dashboard from "../pages/dashboard";
+import Home from "../pages/home";
 import Signin from "../pages/signin";
 import Signup from "../pages/signup";
+
 const Routes = () => {
+  const [authenticated, setAuthenticated] = useState(false);
+  const [userId, setUserId] = useState([]);
+
   return (
     <Switch>
       <Route exact path="/">
-        <Home />
-      </Route>
-      <Route exact path="/signin">
-        <Signin />
+        <Home authenticated={authenticated} />
       </Route>
       <Route exact path="/signup">
-        <Signup />
+        <Signup authenticated={authenticated} />
       </Route>
-
+      <Route exact path="/signin">
+        <Signin
+          setUserId={setUserId}
+          authenticated={authenticated}
+          setAuthenticated={setAuthenticated}
+        />
+      </Route>
       <Route exact path="/dashboard">
-        <Dashboard />
+        <Dashboard userId={userId} authenticated={authenticated} />
       </Route>
     </Switch>
   );

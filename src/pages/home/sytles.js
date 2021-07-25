@@ -51,7 +51,7 @@ export const Content = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   margin-right: 50px;
 
   h1 {
@@ -75,7 +75,14 @@ export const Background = styled.div`
     background-image: url(${home});
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 80%;
+    background-size: contain;
+    margin-right: 50px;
     animation: ${appear} 4s;
+  }
+  @media (min-width: 1500px) {
+    flex: 1;
+    max-width: 1100px;
+    background-size: 70%;
+    margin: 0 400px 0 400px;
   }
 `;

@@ -2,15 +2,14 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   background-color: var(--white);
-  border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 200px;
   height: 180px;
   padding: 16px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
-  color: var(--white);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.7);
+  color: var(--black);
   border: 2px solid var(--orange);
   hr {
     width: 80%;
