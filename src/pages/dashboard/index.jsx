@@ -33,7 +33,8 @@ const Dashboard = ({ authenticated, userId }) => {
           },
         }
       )
-      .then((response) => setTechs([...techs, response.data]));
+      .then((response) => setTechs([...techs, response.data]))
+      .catch((err) => toast.error("Technology already been registered!"));
   };
 
   const handleRemove = (id) => {
