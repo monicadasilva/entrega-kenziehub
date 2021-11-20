@@ -9,7 +9,6 @@ const Home = () => {
 
   const showMenu = () => {
     setVisible(!visible);
-    console.log(visible);
   };
   return (
     <Container>

@@ -1,7 +1,7 @@
 import Input from "../../components/Input";
 import { Container, InputContainer, TechContainer } from "./styles";
 import { useForm } from "react-hook-form";
-import { FiEdit2, FiLayers } from "react-icons/fi";
+import { FiEdit2, FiLayers, FiLogOut, FiMenu } from "react-icons/fi";
 import Card from "../../components/Card";
 import { useState } from "react";
 import api from "../../services/api";
@@ -11,6 +11,7 @@ import { Redirect } from "react-router-dom";
 
 const Dashboard = ({ authenticated, userId }) => {
   const [techs, setTechs] = useState(userId.techs);
+  const [visible, setVisible] = useState(false);
 
   const { register, handleSubmit } = useForm([]);
 
@@ -52,10 +53,15 @@ const Dashboard = ({ authenticated, userId }) => {
   if (!authenticated) {
     return <Redirect to={"/signin"} />;
   }
+
+  const showMenu = () => {
+    setVisible(!visible);
+  };
   return (
     <>
-      <Header />
       <Container>
+        <Header visible={visible} setVisible={setVisible} showMenu={showMenu} />
+        <FiMenu className={"open"} onClick={showMenu} />
         <InputContainer onSubmit={handleSubmit(onSubmitFun)}>
           <section>
             <Input
@@ -84,6 +90,7 @@ const Dashboard = ({ authenticated, userId }) => {
               />
             ))}
         </TechContainer>
+        <FiLogOut className={"logout"} />
       </Container>
     </>
   );
