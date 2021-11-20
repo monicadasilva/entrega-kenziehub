@@ -26,6 +26,11 @@ body{
     background-repeat: no-repeat;
     height: 100vh;
     color: var(--white);
+
+
+    text-decoration: none;
+    
+
 }
 body, input{
     font-family: "Roboto Mono", monospace;
