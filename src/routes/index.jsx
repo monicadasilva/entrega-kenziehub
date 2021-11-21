@@ -25,7 +25,11 @@ const Routes = () => {
         />
       </Route>
       <Route exact path="/dashboard">
-        <Dashboard userId={userId} authenticated={authenticated} />
+        <Dashboard
+          userId={userId}
+          authenticated={authenticated}
+          setAuthenticated={setAuthenticated}
+        />
       </Route>
     </Switch>
   );

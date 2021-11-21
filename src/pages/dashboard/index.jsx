@@ -8,14 +8,23 @@ import api from "../../services/api";
 import { toast } from "react-toastify";
 import Header from "../../components/Header";
 import { Redirect } from "react-router-dom";
+import { useEffect } from "react";
 
-const Dashboard = ({ authenticated, userId }) => {
-  const [techs, setTechs] = useState(userId.techs);
+const Dashboard = ({ authenticated, setAuthenticated, userId }) => {
+  const [techs, setTechs] = useState([]);
   const [visible, setVisible] = useState(false);
 
   const { register, handleSubmit } = useForm([]);
 
   const [token] = useState(localStorage.getItem("KenzieHub:token") || "");
+  const [userID] = useState(localStorage.getItem("KenzieHub:id") || "");
+
+  useEffect(() => {
+    api
+      .get(`/users/${userID}`)
+      .then((response) => setTechs(response.data["techs"]))
+      .catch((err) => toast.error("Technology already been registered!"));
+  }, [userID]);
 
   const onSubmitFun = (data) => {
     if (!data) {
@@ -57,6 +66,12 @@ const Dashboard = ({ authenticated, userId }) => {
   const showMenu = () => {
     setVisible(!visible);
   };
+
+  const Logout = () => {
+    localStorage.clear();
+
+    setAuthenticated(!authenticated);
+  };
   return (
     <>
       <Container>
@@ -90,7 +105,7 @@ const Dashboard = ({ authenticated, userId }) => {
               />
             ))}
         </TechContainer>
-        <FiLogOut className={"logout"} />
+        <FiLogOut className={"logout"} onClick={Logout} />
       </Container>
     </>
   );

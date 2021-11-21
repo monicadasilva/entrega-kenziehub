@@ -11,7 +11,9 @@ const Card = ({ title, status, onClick }) => {
       <span>
         <FiDatabase /> {status}
       </span>
-      <button onClick={onClick}>Remove</button>
+      <button type={"submit"} name={"remove"} onClick={onClick}>
+        Remove
+      </button>
     </Container>
   );
 };

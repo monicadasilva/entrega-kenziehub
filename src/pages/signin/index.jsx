@@ -25,12 +25,14 @@ const Signin = ({ authenticated, setAuthenticated, setUserId }) => {
   } = useForm({ resolver: yupResolver(formSchema) });
   const history = useHistory();
 
-  const onSubmitFunc = (data) => {
+  const onSubmitFunc = (data, e) => {
+    e.preventDefault();
     api
       .post("/sessions", data)
       .then((response) => {
         setUserId(response.data.user);
         localStorage.setItem("KenzieHub:token", response.data.token);
+        localStorage.setItem("KenzieHub:id", response.data["user"]["id"]);
         setAuthenticated(true);
         history.push("/dashboard");
       })
@@ -64,7 +66,7 @@ const Signin = ({ authenticated, setAuthenticated, setUserId }) => {
             placeholder="Type your password"
             error={errors.password?.message}
           />
-          <button>Sign in </button>
+          <button type={"submit"}>Sign in </button>
         </form>
       </Content>
     </Container>

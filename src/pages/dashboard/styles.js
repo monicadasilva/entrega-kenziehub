@@ -9,11 +9,15 @@ export const Container = styled.div`
   padding: 0 38px;
 
   .logout {
+    text-decoration: none;
+    color: white;
     position: absolute;
     width: 50px;
     height: 30px;
     bottom: 10%;
     right: 10%;
+    cursor: pointer;
+    z-index: 50;
   }
   svg.open {
     display: initial;
